@@ -1,30 +1,30 @@
 // API 1: "https://jsonplaceholder.typicode.com/users"
 // API 2: "https://jsonplaceholder.typicode.com/posts?userId=2"
 
-const userListEl = document.querySelector(".user-list");
-const searchInput = document.getElementById('searchInput');
-const suggestionsEl = document.getElementById('searchSuggestions');
-const searchForm = document.getElementById('searchForm');
-const clearBtn = document.getElementById('clearBtn');
+const userListEl = document.querySelector(".user-list"); /* Container for user cards */
+const searchInput = document.getElementById('searchInput'); /* Search input field */
+const suggestionsEl = document.getElementById('searchSuggestions'); /* Suggestions dropdown */
+const searchForm = document.getElementById('searchForm'); /* Search form */
+const clearBtn = document.getElementById('clearBtn'); /* Clear search button */
 
-let breweries = [];
-let selectedSuggestion = -1;
+let breweries = []; /* Store all breweries */
+let selectedSuggestion = -1; /* Track selected suggestion index */
 
-async function main() {
+async function main() { /* Main function to fetch and render breweries */
     const posts = await fetch(`https://api.openbrewerydb.org/v1/breweries?by_city=Portland&by_state=Oregon&per_page=100`);
-    breweries = await posts.json();
+    breweries = await posts.json(); /* Fetch all breweries */
     breweries = breweries.filter(b => (b.state || '').toLowerCase() === 'oregon'); /* Ensure only Oregon breweries */ 
-    renderList(breweries.slice(0, 6));
+    renderList(breweries.slice(0, 6)); /* Initial render: first 6 breweries */
 }
 
 function renderList(items) {
-  userListEl.innerHTML = items.map((user) => userHTML(user)).join("");
+  userListEl.innerHTML = items.map((user) => userHTML(user)).join(""); /* Render user cards */
 }
 
 main();
 
 function showUserPosts(name) {
-    localStorage.setItem("name", name);
+    localStorage.setItem("name", name); /* Store brewery name in localStorage */
     window.location.href = `${window.location.origin}/user.html`
 }
 
@@ -59,7 +59,18 @@ function updateSuggestions() {
   }).slice(0, 6);
 
   if (!suggestionsEl) return;
-  suggestionsEl.innerHTML = matches.map((m, i) => `\n    <li role="option" data-id="${escapeHtml(m.id || '')}" data-name="${escapeHtml(m.name || '')}" data-type="${escapeHtml(m.brewery_type || '')}">\n      <strong>${escapeHtml(m.name || '')}</strong><span class="muted"> — ${escapeHtml(m.brewery_type || '')} · ${escapeHtml(m.city || '')}, ${escapeHtml(m.state || '')}</span>\n    </li>`).join('');
+  suggestionsEl.innerHTML = matches.map
+  ((m, i) =>
+     `\n    <li role="option" data-id="${escapeHtml(m.id || '')}" 
+  data-name="${escapeHtml(m.name || '')}"
+  data-type="${escapeHtml(m.brewery_type || '')}">\n      
+  <strong>${escapeHtml(m.name || '')}
+  </strong><span class="muted"> — 
+  ${escapeHtml(m.brewery_type || '')} 
+  · ${escapeHtml(m.city || '')}
+   , ${escapeHtml(m.state || '')}
+  </span>\n    </li>`).join('');
+
   if (matches.length === 0) {
     suggestionsEl.innerHTML = '<li class="muted">No results</li>';
   }
@@ -112,19 +123,31 @@ function onSuggestionClick(e) {
   }
   // fallback: filter by name or type
   const q = searchInput.value.trim().toLowerCase();
-  const results = breweries.filter(b => (b.name || '').toLowerCase().includes(q) || (b.brewery_type || '').toLowerCase().includes(q));
+  const results = breweries.filter
+  (b => 
+    (b.name || '').toLowerCase().includes(q) || 
+    (b.brewery_type || '').toLowerCase().includes(q),
+  );
+
   renderList(results);
 }
 
-function onSubmit(e) {
+async function onSubmit(e) {
   e && e.preventDefault();
-  const q = searchInput.value.trim().toLowerCase();
+
+  const q = searchInput.value.trim();
   if (!q) {
     renderList(breweries);
     return;
   }
-  const results = breweries.filter(b => (b.name || '').toLowerCase().includes(q) || (b.brewery_type || '').toLowerCase().includes(q) || (b.city || '').toLowerCase().includes(q) || (b.state || '').toLowerCase().includes(q));
-  renderList(results);
+
+  const response = await fetch(
+    `https://api.openbrewerydb.org/v1/breweries?by_city=Portland&by_state=Oregon&by_name=${q}&per_page=6`
+  );
+
+  const data = await response.json();
+  renderList(data);
+
   suggestionsEl && suggestionsEl.classList.add('hidden');
 }
 

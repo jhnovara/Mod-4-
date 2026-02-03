@@ -1,32 +1,28 @@
-const postListEl = document.querySelector(`.post-list`);
-const city = localStorage.getItem("city") || "Portland";
+const postListEl = document.querySelector(".post-list");
+const breweryId = localStorage.getItem("name");
 
-renderPosts(city);
+async function renderPost() {
+  if (!breweryId) return;
 
+  const response = await fetch(
+    `https://api.openbrewerydb.org/v1/breweries/${breweryId}`
+  );
 
-async function onSearchChange(event) {
-    const id = event.target.value;
-    renderPosts(id)
-    }
-
-async function renderPosts(id) {
-    const cityParam = encodeURIComponent(id || city);
-    const posts = await fetch(`https://api.openbrewerydb.org/v1/breweries?by_city=Portland&by_state=Oregon&per_page=100`);
-    const postsData = await posts.json();
-    const filtered = postsData.filter((p) => (p.state || '').toLowerCase() === 'oregon');
-    postListEl.innerHTML = filtered.map((post) => postHTML(post)).join("");
+  const data = await response.json();
+  postListEl.innerHTML = postHTML(data);
 }
 
-
 function postHTML(post) {
-    return `
+  return `
     <div class="post">
         <div class="post__title">
             ${post.name}
         </div>
-        <p class="post__body">
-            <b>Type:</b> ${post.brewery_type}
-        </p>
+        <p><b>Type:</b> ${post.brewery_type}</p>
+        <p><b>Phone:</b> ${post.phone}</p>
+        <p><b>Address:</b> ${post.street}, ${post.city}, ${post.state}</p>
     </div>
-    `;   
+  `;
 }
+
+renderPost();

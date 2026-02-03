@@ -247,6 +247,12 @@ p {
   margin: 20px;
 }
 
+.post-list {
+  display: flex;
+  flex-direction: column;
+  font-family: "Arial", sans-serif;
+}
+
 .post__title {
   font-size: 12px;
   font-weight: bold;
