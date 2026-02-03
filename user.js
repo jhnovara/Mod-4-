@@ -1,5 +1,8 @@
-const postListEl =document.querySelector(`.post-list`);
-const id = localStorage.getItem("id");
+const postListEl = document.querySelector(`.post-list`);
+const city = localStorage.getItem("city") || "Portland";
+
+renderPosts(city);
+
 
 async function onSearchChange(event) {
     const id = event.target.value;
@@ -7,22 +10,23 @@ async function onSearchChange(event) {
     }
 
 async function renderPosts(id) {
-    const posts = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
+    const cityParam = encodeURIComponent(id || city);
+    const posts = await fetch(`https://api.openbrewerydb.org/v1/breweries?by_city=Portland&by_state=Oregon&per_page=100`);
     const postsData = await posts.json();
-    postListEl.innerHTML = postsData.map(post => postHTML(post)).join(``);
-    }
+    const filtered = postsData.filter((p) => (p.state || '').toLowerCase() === 'oregon');
+    postListEl.innerHTML = filtered.map((post) => postHTML(post)).join("");
+}
+
 
 function postHTML(post) {
     return `
     <div class="post">
         <div class="post__title">
-            ${post.title}
+            ${post.name}
         </div>
         <p class="post__body">
-            ${post.body}
+            <b>Type:</b> ${post.brewery_type}
         </p>
     </div>
-    `;
+    `;   
 }
-
-renderPosts(id);

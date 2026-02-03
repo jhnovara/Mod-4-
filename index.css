@@ -1,8 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+.bungee-regular {
+  font-family: "Bungee", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #e9e9e9;
+  background-color: #ffffff;
+  font-family: "bungee", sans-serif;
+}
+
+nav {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+  padding: 0 8px;
+  background-color: #74bb9a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.95;
+  font-family: "Arial", sans-serif;
+}
+
+.user-card__container {
+  font-family: "Arial", sans-serif;
+}
+.header__logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: auto;
+  opacity: 0.9; /* beer photo */
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+.header__container {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  min-height: 450px;
+  background-color: #25382f;
+  overflow: hidden;
+}
+
+.header__container.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+} 
+
+.header__title {
+  position: relative;
+  z-index: 3;
+  margin: 0;
+  font-size: 115px;
+  font-weight: 700;
+  color: #e8edef;
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.900);
+  padding: 0;
+  font-family: "Bungee", sans-serif;
+}
+
+.beer-icon {
+  margin: 0 8px;
+  color: #f6c85f;
+  font-size: 0.9em;
+  transform: translateY(4px);
+  transition: transform .15s ease, color .15s ease;
+}
+.beer-icon:hover {
+  color: #ffd966;
+  transform: translateY(0) scale(1.06);
+  cursor: default;
+} 
+
+.header__subtitle {
+  position: relative;
+  z-index: 3;
+  margin: 0;
+  font-size: 125px;
+  font-weight: 700;
+  color: #4d79b2;
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.900);
+  padding: 0 20px;
+  text-decoration: dotted underline #ffffff31;
+  font-family: "Arial", sans-serif;
+}
+
+.header__subtitle--title {
+  position: relative;
+  margin: 20px 0 0 0;
+  z-index: 4;
+  font-size: 24px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  padding: 0 20px;
+  opacity: 0.9;
+  font-family: "Bungee", sans-serif;
+}
+
+.subtitle__tag--line {
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+li {
+  list-style-type: none;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.btn-contact {
+    display: flex;
+    cursor: pointer;
+    max-height: 24px;
+    padding: 12px 40px;
+    align-items: center;
+    border: 2px #5d3eff;
+    border-radius: 50px;
+    background-color: #2763ef;
+    color: #f7eef1!important;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all .35s ease
+}
+
+a.btn-contact:hover {
+    background-color: #0d05ee;
+    color: #fff!important
 }
 
 .container {
@@ -20,6 +182,10 @@ p {
 .hidden {
   display: none;
 }
+
+
+/* USER LIST & CARDS */
+
 
 .user-list {
   width: auto;
@@ -85,7 +251,7 @@ p {
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(0, 0, 0);
   padding: 8px;
 }
 
@@ -108,4 +274,148 @@ p {
 
 .post__search--label {
   padding-right: 8px;
+}
+
+/* 
+
+SEARCH BAR
+
+*/
+
+.search-btn {
+  background-color: #4c9daf; 
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 10px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #74d7ef; 
+}
+
+.search {
+  margin-top: 48px;
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-hint {
+  margin: 8px auto 32px;
+  text-align: center;
+  color: #6f6f6f;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-transform: none;
+}
+
+.search--box {
+  position: relative;
+  width: min(680px, 92%);
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 1px 6px rgba(32,33,36,0.08);
+  padding: 8px 12px;;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.search--box:focus-within {
+  box-shadow: 0 8px 24px rgba(32,33,36,0.12);
+  border-color: rgba(32,33,36,0.12);
+}
+
+.search-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 20px;
+  margin-right: 12px;
+  color: #6f6f6f; /* color for font icons */
+  font-size: 18px; /* size for the <i> icon */
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .12s ease, transform .12s ease;
+}
+.search-symbol:hover {
+  color: #357a8c;
+  transform: scale(1.05);
+} 
+
+/* If an inline SVG exists, make it inherit color */
+.search-symbol svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  padding: 8px 6px;
+  background: transparent;
+}
+
+.search-clear {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #6f6f6f;
+  display: none;
+  padding: 0 6px;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(32,33,36,0.12);
+  max-height: 220px;
+  overflow: auto;
+  z-index: 20;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.search-suggestions li {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f3f4;
+  font-size: 15px;
+}
+
+.search-suggestions li .muted {
+  color: #666;
+  font-weight: 400;
+  font-size: 13px;
+  margin-left: 6px;
+}
+
+.search-suggestions li:hover,
+.search-suggestions li.active {
+  background: #f1f3f4;
+}
+
+@media (max-width: 520px) {
+  .header__title { font-size: 48px; }
+  .search--box { width: calc(100% - 40px); }
 }
