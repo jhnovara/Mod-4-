@@ -15,36 +15,76 @@
 
 <body>
   <nav>
-    <li><a href="home">Home</a></li>
-    <li><a href="findbrewery">Brewery Map</a></li>
-    <li><a class="btn-contact">Sign In</a></li>
-  </div>
-</nav>
+    <ul>
+      <li>
+        <a class="nav__link" href="#home">Home</a></li>
+      <li>
+        <a class="nav__link" href="#findbrewery">Brewery Map</a></li>
+      <li>
+        <a class="btn-contact">Sign In</a></li>
+    </ul>
+  </nav>
   <section class="header">
     <div class="header__container">
       <img class="header__logo" src="./assets/beer.png" alt="Brewery Finder Logo">
-        <h1 class="header__title">H<i class="fa-solid fa-beer-mug-empty beer-icon" aria-hidden="true" aria-label="Beer icon"></i>p Around</h1>
+        <h1 class="header__title">H<span class="beer-icon-wrapper"><i class="fa-solid fa-beer-mug-empty beer-icon" aria-hidden="true" aria-label="Beer icon"></i></span>p Around</h1>
         <h2 class="header__subtitle">PDX</h2>
-        <div class="subtitle__tag--line">
-          <h3 class="header__subtitle--title">Hop Around PDX helps you find your next favorite pint -- one brewery at a time.</h3>
-        </div>
-      </div>
-
-      <form id="searchForm" class="search" role="search" aria-label="Search Breweries">
+         <form id="searchForm" class="search" role="search" aria-label="Search Breweries">
         <div class="search--box" id="searchBox">
           <i class="fa fa-search search-symbol" aria-hidden="true" aria-label="Search icon"></i>
           <input id="searchInput" class="search-input" type="search" placeholder="Search for Brewery Name" autocomplete="off" aria-label="Search breweries"/>
           <button type="submit" id="searchBtn" class="search-btn" aria-label="Submit search">Explore Breweries</button>
         </div>
+        <div class="subtitle__tag--line">
+         <h3 class="header__subtitle--title">Hop Around PDX helps you find your next favorite pint -- one brewery at a time.</h3>
+       </div>
         <ul id="searchSuggestions" class="search-suggestions hidden" role="listbox" aria-label="Search suggestions"></ul>
       </form>
+      <div class="alpha-slider-wrap" aria-label="Alphabetical filter" role="region">
+        <div class="alpha-slider" role="group" aria-label="Filter breweries by starting letter">
+          <button type="button" class="alpha-letter" data-letter="">All</button>
+          <button type="button" class="alpha-letter" data-letter="A">A</button>
+          <button type="button" class="alpha-letter" data-letter="B">B</button>
+          <button type="button" class="alpha-letter" data-letter="C">C</button>
+          <button type="button" class="alpha-letter" data-letter="D">D</button>
+          <button type="button" class="alpha-letter" data-letter="E">E</button>
+          <button type="button" class="alpha-letter" data-letter="F">F</button>
+          <button type="button" class="alpha-letter" data-letter="G">G</button>
+          <button type="button" class="alpha-letter" data-letter="H">H</button>
+          <button type="button" class="alpha-letter" data-letter="I">I</button>
+          <button type="button" class="alpha-letter" data-letter="J">J</button>
+          <button type="button" class="alpha-letter" data-letter="K">K</button>
+          <button type="button" class="alpha-letter" data-letter="L">L</button>
+          <button type="button" class="alpha-letter" data-letter="M">M</button>
+          <button type="button" class="alpha-letter" data-letter="N">N</button>
+          <button type="button" class="alpha-letter" data-letter="O">O</button>
+          <button type="button" class="alpha-letter" data-letter="P">P</button>
+          <button type="button" class="alpha-letter" data-letter="Q">Q</button>
+          <button type="button" class="alpha-letter" data-letter="R">R</button>
+          <button type="button" class="alpha-letter" data-letter="S">S</button>
+          <button type="button" class="alpha-letter" data-letter="T">T</button>
+          <button type="button" class="alpha-letter" data-letter="U">U</button>
+          <button type="button" class="alpha-letter" data-letter="V">V</button>
+          <button type="button" class="alpha-letter" data-letter="W">W</button>
+          <button type="button" class="alpha-letter" data-letter="X">X</button>
+          <button type="button" class="alpha-letter" data-letter="Y">Y</button>
+          <button type="button" class="alpha-letter" data-letter="Z">Z</button>
+        </div>
+        <div class="alpha-actions">
+          <button id="alphaSortAsc" type="button" class="alpha-sort" aria-label="Sort A to Z">A→Z</button>
+          <button id="alphaSortDesc" type="button" class="alpha-sort" aria-label="Sort Z to A">Z→A</button>
+          <button id="alphaClearBtn" type="button" class="alpha-clear">Clear Search</button>
+        </div>
+      </div>
+    </section>
+    <section class="brewery-map" id="findbrewery">
       <div class="container">
         <div class="row">
           <div class="user-list">
             <div class="user">
               <div class="user-card">
                 <div class="user-card__container">
-                  <h3>User's Name</h3>
+                    <h3>User's Name</h3>
                   <p><b>Brewery Type:</b> brewery type</p>
                   <p><b>Phone:</b> 0000000000</p>
                   <p><b>Address:</b> 123 Main Street</p>
@@ -56,7 +96,19 @@
         </div>
       </div>
     </section>
+
+    <footer>
+      <img class="footer__logo" src="./assets/Screenshot 2026-02-14 210026.png" alt="Brewery Finder Logo">
+      <div class="footer__links">
+        <a class="footer__link" href="#home">Home</a>
+        <a class="footer__link" href="#about">About</a>
+        <a class="footer__link" href="#findbrewery">Brewery Map</a>
+        <a class="footer__link" href="#contact">Contact</a>
+      </div>
+      <p>&copy; 2026 Hop Around PDX. All rights reserved.</p>
+    </footer>
   </body>
   <script src="index.js"></script>
+  <script src="alpha.js"></script>
 
 </html>

@@ -14,7 +14,9 @@ async function main() { /* Main function to fetch and render breweries */
     const posts = await fetch(`https://api.openbrewerydb.org/v1/breweries?by_city=Portland&by_state=Oregon&per_page=100`);
     breweries = await posts.json(); /* Fetch all breweries */
     breweries = breweries.filter(b => (b.state || '').toLowerCase() === 'oregon'); /* Ensure only Oregon breweries */ 
-    renderList(breweries.slice(0, 6)); /* Initial render: first 6 breweries */
+  // expose to global so other scripts (alpha.js) can access
+  try { window.breweries = breweries; } catch (err) {}
+    renderList(breweries.slice(0, 6)); /* Initial render: first 6 breweries displayed */
 }
 
 function renderList(items) {
@@ -28,7 +30,7 @@ function showUserPosts(name) {
     window.location.href = `${window.location.origin}/user.html`
 }
 
-searchInput && searchInput.addEventListener('input', onInput);
+searchInput && searchInput.addEventListener('input', onInput); 
 searchInput && searchInput.addEventListener('keydown', onKeyDown);
 suggestionsEl && suggestionsEl.addEventListener('click', onSuggestionClick);
 searchForm && searchForm.addEventListener('submit', onSubmit);
@@ -79,7 +81,7 @@ function updateSuggestions() {
 }
 
 function onKeyDown(e) {
-  if (!suggestionsEl || suggestionsEl.classList.contains('hidden')) return;
+  if (!suggestionsEl || suggestionsEl.classList.contains('hidden')) return; 
   const items = Array.from(suggestionsEl.querySelectorAll('li'));
   if (e.key === 'ArrowDown') {
     e.preventDefault();
@@ -146,6 +148,9 @@ async function onSubmit(e) {
   );
 
   const data = await response.json();
+  // update local and global store then render
+  breweries = data;
+  try { window.breweries = breweries; } catch (err) {}
   renderList(data);
 
   suggestionsEl && suggestionsEl.classList.add('hidden');
